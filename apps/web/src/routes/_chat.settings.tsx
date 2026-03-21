@@ -75,11 +75,10 @@ function SettingsRouteView() {
   const keybindingsConfigPath = serverConfigQuery.data?.keybindingsConfigPath ?? null;
   const availableEditors = serverConfigQuery.data?.availableEditors;
 
-  const gitTextGenerationModelOptions = getAppModelOptions(
-    "codex",
-    settings.customCodexModels,
-    settings.textGenerationModel,
-  );
+  const gitTextGenerationModelOptions = [
+    ...getAppModelOptions("codex", settings.customCodexModels, settings.textGenerationModel),
+    ...getAppModelOptions("claudeAgent", [], settings.textGenerationModel),
+  ];
   const selectedGitTextGenerationModelLabel =
     gitTextGenerationModelOptions.find(
       (option) =>
